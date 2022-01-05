@@ -2,12 +2,12 @@ function ifSuccess(response) {
     if(response.ok)
     {
     console.log("USER LOGGED IN.");
-    location.href = 'loginredsuc.html';
+    location.href = 'loginredsuc.html'; //to be redirected to to an actual page, to remove loginredsuc.html
     }
     else
     {
         console.log("User did not log in")
-        location.href = 'loginredfail.html'
+        alert("Email and/or password invalid.")
     }
 
 }
