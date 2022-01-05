@@ -2,6 +2,18 @@ import sqlite3
 
 dbfile = ("users.db")
 
+def connect(db_filename):
+    try:
+        conn = sqlite3.connect(db_filename)
+        print("..SQLite connection established...")
+    except ValueError as ve:
+        print(f"--Invalid values provided. Error: {ve}.")
+        raise ve
+    except Exception as e:
+        print(f"--Failed to connect to {db_filename}. Error: {e}.")
+        raise e
+    return conn
+
 def get_connection(dbfile):
     try:
         conn = sqlite3.connect(dbfile)
@@ -27,11 +39,18 @@ def get_email_and_password(conn, email=None):
 
 
 def create_user(conn, user_details):
-    query = """insert into users (name, email, password)
-        values (?, ?, ?);"""
+    value_keys = ",".join(user_details.keys())
+    values = [user_details[k] for k, v in user_details.items()]
+    n_values = ",".join(["?"] * len(values))
+    query = f"insert into users ({value_keys}) values ({n_values})"
     try:
         cursor = conn.cursor()
-        cursor.execute(query, user_details)
+        cursor.execute(query, values)
         conn.commit()
+        print("..User created successfully...")
+    except sqlite3.IntegrityError as ie:
+        print(f"--Failed to create user due to constraints not met. Error: {ie}.")
+        raise ValueError(ie)
     except Exception as e:
-        raise Exception(f"--Failed to create user with details = {user_details}. Error: {e}.")
+        print(f"--Failed to insert new users. Error: {e}.")
+        raise e
