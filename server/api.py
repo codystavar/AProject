@@ -1,14 +1,15 @@
 from flask import Flask, request
 from flask_cors import CORS
 
-from TeamTssWebAppProject.database.repository import get_connection, create_user, get_email_and_password, connect, create_user
+from TeamTssWebAppProject.database.repository import get_connection, create_user, get_email_and_password, connect, \
+    create_user
 
 app = Flask("Login|Signup")
 CORS(app)
 
 DB_FILE = '../database/users.db'
 
-#Create user/Sign up
+# Create user/Sign up
 @app.route('/api/v1/users', methods=["POST"])
 def users():
     user_details = request.json
@@ -36,7 +37,7 @@ def users():
         }
         return error, 500
 
-#Sign in
+# Sign in
 @app.route('/api/v1/sign-in', methods=["POST"])
 def sign_in():
     body = request.json

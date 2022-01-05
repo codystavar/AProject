@@ -1,6 +1,6 @@
 import sqlite3
 
-dbfile = ("users.db")
+dbfile = "users.db"
 
 def connect(db_filename):
     try:
