@@ -1,7 +1,7 @@
 from flask import Flask, request
 from flask_cors import CORS
 
-from AProject.database.repository import get_connection, create_user, get_email_and_password, connect, create_user
+from TeamTssWebAppProject.database.repository import get_connection, create_user, get_email_and_password, connect, create_user
 
 app = Flask("Login|Signup")
 CORS(app)
