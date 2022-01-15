@@ -1,20 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
     <title>Event Calendar Planer</title>
+    <script src="evCreate.js"></script>
 </head>
 <body>
     <div class="container">
         <div>
-            <h4>Plan your event for everyone to see:</h4>
+            <center><h4>Plan your event for everyone to see:</h4></center>
         </div>
+        <div>
+            <center>
+               <input name="title" type="text" placeholder="Event Title"/></center>
+              </div>
 		<div>
-			<label for="event-start-time">Choose a start time for your event:</label>
+			<center><label for="event-start-time">Choose a start time for your event:</label>
 
-			<input type="datetime-local" id="event-start-time"
-				   name="event-start-time" value="2022-01-12T00:00">
+			<input name="startdate" type="text" id="event-start-time" ></center>
 		</div>
+        <div>
+			<center><label for="event-end-time">Choose an end time for your event:</label>
+
+			<input name="enddate" type="text" id="event-end-time" ></center>
+		</div>
+        <center><button type="button" onclick="testCreateEvent()">Create event!</button></center>
+        <center><button onclick="backButton()">Cancel. Back to main page.</button></center>
 
 
 

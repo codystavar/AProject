@@ -3,6 +3,7 @@ from flask_cors import CORS
 
 from TeamTssWebAppProject.database.repository import get_connection, get_email_and_password, connect, \
     create_user
+from TeamTssWebAppProject.database.eventrepo import create_event
 
 app = Flask("Login|Signup")
 CORS(app)
@@ -71,6 +72,31 @@ def sign_in():
         }
         return error, 500
 
+# Create events
+@app.route('/api/v1/cevents', methods=["POST"])
+def events():
+    event_details = request.json
+    title = event_details.get("title", None)
+    if title == "":
+        error = {
+            "error": "--Failed to create event. Title is none."
+        }
+        return error, 400
+    try:
+        conn = connect(DB_FILE)
+        details = {
+            "title": event_details.get("title", None),
+            "startdate": event_details.get("startdate", None),
+            "enddate": event_details.get("enddate", None)
+        }
+        create_event(conn, details)
+        conn.close()
+        return '', 200
+    except Exception as e:
+        error = {
+            'error': {e}
+        }
+        return error, 500
 
 if __name__ == "__main__":
     app.run(port=3002, debug=True)
