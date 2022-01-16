@@ -3,11 +3,12 @@ from flask_cors import CORS
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, JWTManager
 import datetime
 
+
 from TeamTssWebAppProject.database.repository import get_connection, get_email_and_password, connect, \
     create_user
 from TeamTssWebAppProject.database.eventrepo import create_event
 
-app = Flask("ProjectAppTss", template_folder='../client/') # render_template cauta by default un folder numit templates
+app = Flask("ProjectAppTss", template_folder='../client/', static_folder='../client/static/') # render_template cauta by default un folder numit templates
                                                        # redirectionand path-ul template_folder, putem folosi folderul client in schimb
 CORS(app)
 app.config["JWT_SECRET_KEY"] = "teamtsskey"  # Secret Key trebuie sa fie mult mai avansat
@@ -17,6 +18,7 @@ useremail = 0 # de variabila globala utilizata pentru a memora email-ul unui use
 currentuser = 0 # numele userului care a dat "login", de implementat flask login sau jwt sau ceva similar pentru a avea un
                 # login corespunzator
 DB_FILE = '../database/users.db'
+redirectfile = '../client/eventCreatePage.html'
 
 #Create user/Sign up
 @app.route('/api/v1/users', methods=["POST"])
@@ -99,8 +101,10 @@ def events():
         return error, 400
     try:
         conn = connect(DB_FILE)
+        eventuser = currentuser
         details = {
             "title": event_details.get("title", None),
+            "user": currentuser,
             "startdate": event_details.get("startdate", None),
             "enddate": event_details.get("enddate", None)
         }
@@ -121,10 +125,14 @@ def getusername():
     tup = cur.fetchone()
     currentuser = (f"{tup[0]} {tup[1]}")
 
-@app.route('/myprofile', methods=["GET", "PUT"])
+@app.route('/myprofile')
 def my_profile():
     getusername()
     return render_template("myprofile.html", myprofilename = currentuser)
+
+@app.route('/events')
+def eventpage():
+    return render_template("eventCreatePage.html", myprofilename = currentuser)
 
 
 if __name__ == "__main__":
