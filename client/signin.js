@@ -2,7 +2,7 @@ function ifSuccess(response) {
     if(response.ok)
     {
     console.log("USER LOGGED IN.");
-    location.href = 'loginredsuc.html'; //to be redirected to to an actual page, to remove loginredsuc.html
+    location.href = 'http://localhost:3002/myprofile'; //to be redirected to to an actual page, to remove loginredsuc.html
     }
     else
     {

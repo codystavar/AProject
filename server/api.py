@@ -1,21 +1,29 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
+from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, JWTManager
+import datetime
 
 from TeamTssWebAppProject.database.repository import get_connection, get_email_and_password, connect, \
     create_user
 from TeamTssWebAppProject.database.eventrepo import create_event
 
-app = Flask("Login|Signup")
+app = Flask("ProjectAppTss", template_folder='../client/') # render_template cauta by default un folder numit templates
+                                                       # redirectionand path-ul template_folder, putem folosi folderul client in schimb
 CORS(app)
+app.config["JWT_SECRET_KEY"] = "teamtsskey"  # Secret Key trebuie sa fie mult mai avansat
+jwt = JWTManager(app)
 
+useremail = 0 # de variabila globala utilizata pentru a memora email-ul unui user
+currentuser = 0 # numele userului care a dat "login", de implementat flask login sau jwt sau ceva similar pentru a avea un
+                # login corespunzator
 DB_FILE = '../database/users.db'
 
-# Create user/Sign up
+#Create user/Sign up
 @app.route('/api/v1/users', methods=["POST"])
 def users():
     user_details = request.json
     username = user_details.get("username", None)
-    if username is "":
+    if username is None:
         error = {
             "error": "--Failed to create user. Username is none."
         }
@@ -38,17 +46,19 @@ def users():
         }
         return error, 500
 
-# Sign in
+#Sign in
 @app.route('/api/v1/sign-in', methods=["POST"])
 def sign_in():
     body = request.json
     email = body.get("email", None)
     password = body.get("password", None)
+    
     if email is None:
         error = {
             "error": "--Please provide an email."
         }
         return error, 400
+    
 
     if password is None:
         error = {
@@ -60,7 +70,12 @@ def sign_in():
         conn = get_connection(DB_FILE)
         user = get_email_and_password(conn, email)
         if user and user["password"] == password:
-            return '', 204
+            access_token = create_access_token(identity=email, fresh=datetime.timedelta(minutes=60))
+            global useremail # sa adauge in varibila globala
+            useremail = email
+            print("User (email) logged in is:", email, "with access key:", access_token) # sa confirmam ca utilizatorul logat este cel corect
+            return jsonify(access_token=access_token), 204
+                     
         else:
             error = {
                 "error": "--Failed to sign-in. Email or password are invalid."
@@ -97,6 +112,20 @@ def events():
             'error': {e}
         }
         return error, 500
+
+def getusername():
+    conn = get_connection(DB_FILE)
+    cur = conn.cursor()
+    cur.execute(f"SELECT first_name, last_name FROM users WHERE email = '{useremail}'")
+    global currentuser
+    tup = cur.fetchone()
+    currentuser = (f"{tup[0]} {tup[1]}")
+
+@app.route('/myprofile', methods=["GET", "PUT"])
+def my_profile():
+    getusername()
+    return render_template("myprofile.html", myprofilename = currentuser)
+
 
 if __name__ == "__main__":
     app.run(port=3002, debug=True)
