@@ -8,8 +8,10 @@ from TeamTssWebAppProject.database.repository import get_connection, get_email_a
     create_user
 from TeamTssWebAppProject.database.eventrepo import create_event
 
-app = Flask("ProjectAppTss", template_folder='../client/', static_folder='../client/static/') # render_template cauta by default un folder numit templates
-                                                       # redirectionand path-ul template_folder, putem folosi folderul client in schimb
+app = Flask("ProjectAppTss", template_folder='../client/', static_folder='../client/static/') 
+# render_template cauta by default un folder numit templates
+# redirectionand path-ul template_folder, putem folosi folderul client in schimb
+# adaugat si un folder static fisierele js
 CORS(app)
 app.config["JWT_SECRET_KEY"] = "teamtsskey"  # Secret Key trebuie sa fie mult mai avansat
 jwt = JWTManager(app)
