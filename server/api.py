@@ -8,20 +8,19 @@ from TeamTssWebAppProject.database.repository import get_connection, get_email_a
 from TeamTssWebAppProject.database.eventrepo import create_event
 
 app = Flask("ProjectAppTss", template_folder='../client/', static_folder='../client/static/') 
-
-# render_template cauta by default un folder numit templates
-# redirectionand path-ul template_folder, putem folosi folderul client in schimb
-# adaugat si un folder static fisierele js
+# render_template attempts to find by default a folder named 'templates
+# by redirecting the template_folder path, we can use the client folder instead
+# also added a static folder for the js files
 CORS(app)
 socketio = SocketIO(app)
 
 
-app.config["JWT_SECRET_KEY"] = "teamtsskey"  # Secret Key trebuie sa fie mult mai avansat
+app.config["JWT_SECRET_KEY"] = "teamtsskey"  # Secret key has to be a lot more advanced and never an easy to guess word/string
 jwt = JWTManager(app)
 
-useremail = 0 # de variabila globala utilizata pentru a memora email-ul unui user
-currentuser = 0 # numele userului care a dat "login", de implementat flask login sau jwt sau ceva similar pentru a avea un
-                # login corespunzator
+useremail = 0 # global variable used to remember the email of one user
+currentuser = 0 # name of the user that "logged in", need to implement flask login or jwt to have a proper login system
+
 DB_FILE = '../database/users.db'
 redirectfile = '../client/eventCreatePage.html'
 
