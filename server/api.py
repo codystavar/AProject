@@ -1,18 +1,21 @@
-from flask import Flask, request, jsonify, render_template
-from flask_cors import CORS
+from flask import Flask, request, jsonify, render_template, redirect, url_for
+from flask_cors import CORS, cross_origin
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required, JWTManager
+from flask_socketio import SocketIO, join_room, leave_room
 import datetime
-
-
 from TeamTssWebAppProject.database.repository import get_connection, get_email_and_password, connect, \
     create_user
 from TeamTssWebAppProject.database.eventrepo import create_event
 
 app = Flask("ProjectAppTss", template_folder='../client/', static_folder='../client/static/') 
+
 # render_template cauta by default un folder numit templates
 # redirectionand path-ul template_folder, putem folosi folderul client in schimb
 # adaugat si un folder static fisierele js
 CORS(app)
+socketio = SocketIO(app)
+
+
 app.config["JWT_SECRET_KEY"] = "teamtsskey"  # Secret Key trebuie sa fie mult mai avansat
 jwt = JWTManager(app)
 
@@ -79,6 +82,7 @@ def sign_in():
             useremail = email
             print("User (email) logged in is:", email, "with access key:", access_token) # sa confirmam ca utilizatorul logat este cel corect
             return jsonify(access_token=access_token), 204
+            
                      
         else:
             error = {
@@ -136,6 +140,46 @@ def my_profile():
 def eventpage():
     return render_template("eventCreatePage.html", myprofilename = currentuser)
 
+@app.route('/chatlogin')
+@cross_origin()
+def home():
+    
+    return render_template("chatlogin.html")
 
-if __name__ == "__main__":
+
+@app.route('/chat')
+@cross_origin()
+def chat():
+    username = request.args.get('username')
+    room = request.args.get('room')
+
+    if username and room:
+        return render_template('chat.html', username=username, room=room)
+    else:
+        return redirect(url_for('home'))
+
+
+@socketio.on('send_message')
+def handle_send_message_event(data):
+    app.logger.info("{} has sent message to the room {}: {}".format(data['username'],
+                                                                    data['room'],
+                                                                    data['message']))
+    socketio.emit('receive_message', data, room=data['room'])
+
+
+@socketio.on('join_room')
+def handle_join_room_event(data):
+    app.logger.info("{} has joined the room {}".format(data['username'], data['room']))
+    join_room(data['room'])
+    socketio.emit('join_room_announcement', data, room=data['room'])
+
+
+@socketio.on('leave_room')
+def handle_leave_room_event(data):
+    app.logger.info("{} has left the room {}".format(data['username'], data['room']))
+    leave_room(data['room'])
+    socketio.emit('leave_room_announcement', data, room=data['room'])
+
+
+if __name__ == '__main__':
     app.run(port=3002, debug=True)
