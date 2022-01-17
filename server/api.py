@@ -123,6 +123,7 @@ def events():
         }
         return error, 500
 
+# Get username from email
 def getusername():
     conn = get_connection(DB_FILE)
     cur = conn.cursor()
@@ -131,22 +132,29 @@ def getusername():
     tup = cur.fetchone()
     currentuser = (f"{tup[0]} {tup[1]}")
 
+# index
+@app.route('/')
+def indexpage():
+    return render_template("index.html")
+
+# myprofile template
 @app.route('/myprofile')
 def my_profile():
     getusername()
     return render_template("myprofile.html", myprofilename = currentuser)
 
+# events template
 @app.route('/events')
 def eventpage():
     return render_template("eventCreatePage.html", myprofilename = currentuser)
 
+# chat login
 @app.route('/chatlogin')
 @cross_origin()
 def home():
-    
     return render_template("chatlogin.html")
 
-
+# chat
 @app.route('/chat')
 @cross_origin()
 def chat():
@@ -158,7 +166,7 @@ def chat():
     else:
         return redirect(url_for('home'))
 
-
+# chat (send message)
 @socketio.on('send_message')
 def handle_send_message_event(data):
     app.logger.info("{} has sent message to the room {}: {}".format(data['username'],
@@ -166,14 +174,14 @@ def handle_send_message_event(data):
                                                                     data['message']))
     socketio.emit('receive_message', data, room=data['room'])
 
-
+# chat (join room)
 @socketio.on('join_room')
 def handle_join_room_event(data):
     app.logger.info("{} has joined the room {}".format(data['username'], data['room']))
     join_room(data['room'])
     socketio.emit('join_room_announcement', data, room=data['room'])
 
-
+# chat (leave room)
 @socketio.on('leave_room')
 def handle_leave_room_event(data):
     app.logger.info("{} has left the room {}".format(data['username'], data['room']))
