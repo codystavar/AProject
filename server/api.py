@@ -5,7 +5,7 @@ from flask_socketio import SocketIO, join_room, leave_room
 import datetime
 from TeamTssWebAppProject.database.repository import get_connection, get_email_and_password, connect, \
     create_user
-from TeamTssWebAppProject.database.eventrepo import create_event
+from TeamTssWebAppProject.database.eventrepo import create_event, get_events
 
 app = Flask("ProjectAppTss", template_folder='../client/', static_folder='../client/static/') 
 # render_template attempts to find by default a folder named 'templates
@@ -191,6 +191,13 @@ def handle_leave_room_event(data):
     leave_room(data['room'])
     socketio.emit('leave_room_announcement', data, room=data['room'])
 
+#show events
+@app.route('/get_events', methods=['GET'])
+def get_post():
+    conn = connect(DB_FILE)
+    events = get_events(conn)
+    conn.close()
+    return render_template('showEvents.html', events=events)
 
 if __name__ == '__main__':
     app.run(port=3002, debug=True)

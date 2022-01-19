@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+      <title>Events</title>
+        <script src="static/evCreate.js"></script> <!-- rename scriptjs if needed, check path-->
+     </head>
+    <body>
+        <div>
+           <center><h2>Evenimente create</h2></center>
+
+           {% for events in events %}
+           <center><div>{{events[0] + " - " +events[1]+ " - " +events[2]+ " - " +events[3]}}</div></center>
+           <center><div> Participants ?? </div></center>
+           <center><div> <button onclick="backButton()">Take part!</button>
+           {%endfor%}
+
+           <center><button onclick="backButton()">Cancel. Back to main page.</button></center>
+
+
+        </div>
+    </body>
+</html>

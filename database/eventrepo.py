@@ -18,3 +18,11 @@ def create_event(conn, event_details):
     except Exception as e:
         print(f"--Failed to insert new event. Error: {e}.")
         raise e
+
+
+#get posts
+def get_events(conn):
+    cursor = conn.cursor()
+    cursor.execute('select title, user, startdate, enddate from events')
+    events = cursor.fetchall()
+    return events
