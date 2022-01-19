@@ -3,22 +3,33 @@
     <head>
       <title>Sign in - TSS</title>
         <script src="static/signin.js"></script> <!-- rename scriptjs if needed, check path-->
+        <link rel="stylesheet" href="static/style/style.css">
     </head>
     <body>
+      <div class = "div indexbg">
+        <div class = "box">
         <div>
-           <center><h2><p>Welcome to our project!</p></h2>        
-            <h2> Hello! Please use your e-mail and password to login!</h2></center>
-           </div>
-            <center><input name="email" type="email" placeholder="Your email"/></center>
-            </div>
-            <div>
-          <center><input name="password" type="password" placeholder="Password"/></center>
-            </div>
-            <div>
-          <center><button onclick="signin()">Sign in</button></center>
-          <center> <a href="http://localhost:3002/signup">Don't have an account? Create one here!</a></center>
-        
+          <br>
+           <p1>Welcome to our project!</p1>
+           <br>
+           <br>       
+            <p1> Please use your e-mail and password to login!</p1>
+            <br>
+            <br>
         </div>
+            <input name="email" type="email" placeholder="Your email"/>
+            <div>
+          <input name="password" type="password" placeholder="Password"/>
+            </div>
+              <div>
+          <button class = button1 onclick="signin()">Sign in</button>
+          <br>
+          <p2><a href="http://localhost:3002/signup">Don't have an account? Create one here!</a></p2>
+          <br>
+          <br>
+          <br>
+        </div>
+            </div>
         </div>
     </body>
 </html>

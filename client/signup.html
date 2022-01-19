@@ -3,32 +3,28 @@
     <head>
       <title>Create a user - TSS </title>
         <script src="static/signup.js"></script>
+        <link rel="stylesheet" href="static/style/style.css">
     </head>
     <body>
         <div>
             <div>
-                <center><h2> Please fill in the forms below to create a new account.</h2>
+              <div class = "div indexbg">
+                <div class = "box">
+                  <br>
+                <center><p1> Please fill in the forms below to create a new account:</p1></center>
                     <br>
-                    <p>New account details:</p>
-               <input name="username" type="text" placeholder="Username"/></center>
-              </div>
-              <div>
-            <center> 
-               <input name="firstName" type="text" placeholder="First Name"/></center>
-              </div>
-            <div>           
-             <center>
-                 <input name="secondName" type="text" placeholder="Second Name"/></center>
-            </div>
-            <div>
+                    <br>
+              <center><input name="username" type="text" placeholder="Username"/></center>
+              <center><input name="firstName" type="text" placeholder="First Name"/></center>
+              <center><input name="secondName" type="text" placeholder="Second Name"/></center>
               <center><input name="email" type="email" placeholder="Your email"/></center>
-            </div>
-            <div>
-                <center><input name="password" type="password" placeholder="Your password"/></center>
-              </div>
-            <div>
-              <center><button onclick="createAccount()">Create account</button></center>
-              <center> <a href="http://localhost:3002">Already have an account? Sign in here!</a></center>
+              <center><input name="password" type="password" placeholder="Your password"/></center>
+              <br>
+              <center><button class=button1 onclick="createAccount()">Create account</button></center>
+              <br>
+              <center><p2><a href="http://localhost:3002">Already have an account? Sign in here!</a></p2></center>
+              <br>
+              <br>
             </div>
           </div>
         </div>

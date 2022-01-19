@@ -2,15 +2,23 @@
 <html>
     <head>
       <title>My Profile</title>
+      <link rel="stylesheet" href="static/style/style.css">
     </head>
     <body>
+        <div class = "div myprofilebg">
+        <div class = box2>
         <div>
            <center> <h1 class = "title"> 
                Welcome {{ myprofilename }}! </h1> </center>
            </div>
-        <div><center><p>How are you today? Below you have a list possible options:</p></center></div>
-        <center><input type="button" onclick="location.href='/events';" value="Make a new event!" /></center>
-        <center><input type="button" onclick="location.href='/get_events';" value="See events!" /></center>
-        <center><input type="button" onclick="location.href='/chatlogin';" value="Join a chatroom" /></center>
+        <div><center><p>How are you today? Below you have a list possible options:</p></center>
+        <center><input type="button" class = button2 onclick="location.href='/events';" value="Make a new event!" /></center>
+        <br>
+        <center><input type="button" class = button2 onclick="location.href='/get_events';" value="See events!" /></center>
+        <br>
+        <center><input type="button" class = button2 onclick="location.href='/chatlogin';" value="Join a chatroom" /></center>
+        <br>
+        <br>
+    </div>
     </body>
 </html>
