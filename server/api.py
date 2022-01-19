@@ -135,6 +135,10 @@ def getusername():
 @app.route('/')
 def indexpage():
     return render_template("index.html")
+# signup
+@app.route('/signup')
+def signup():
+    return render_template("signup.html")
 
 # myprofile template
 @app.route('/myprofile')
