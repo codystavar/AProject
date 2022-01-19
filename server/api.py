@@ -81,8 +81,7 @@ def sign_in():
             useremail = email
             print("User (email) logged in is:", email, "with access key:", access_token) # sa confirmam ca utilizatorul logat este cel corect
             return jsonify(access_token=access_token), 204
-            
-                     
+                           
         else:
             error = {
                 "error": "--Failed to sign-in. Email or password are invalid."

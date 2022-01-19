@@ -3,24 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <title>ChatApp Login - TSS</title>
+    <link rel="stylesheet" href="static/style/style.css">
 </head>
 <body>
-<h1><center>Welcome to the chatroom(s)!</center></h1>
 <form action="/chat">
     <div>
+        <div class = "div chatbg">
+            <div class = box3>
+                <br>
+              <p1>Welcome to the chatroom!</p1>
         <br>
-       <center> <label>Enter your username:</label>
         <br>
-        <input type="text" name="username">
-       </center>
-    </div>
-    <div>
-        <center><label>Enter room id:</label>
-            <br>
+        <br>
+       <center> <p2>Enter your username:</p2>
+        <br>
+        <input type="text" name="username"></center>
+        <br>
+        <center><p2>Enter room id:</p2>
+        <br>
         <input type="text" name="room"></center>
-    </div>
-    <center><button type="submit">Join</button>
-    <input type="button" onclick="location.href='/myprofile';" value="Back" /></center>
+        <br>
+    <center><button class=button3 type="submit">Join</button>
+    <input type="button" class=button3 onclick="location.href='/myprofile';" value="Back" /></center>
+    <br>
+
+</div>
 </form>
 </body>
 </html>

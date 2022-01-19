@@ -2,19 +2,24 @@
 <head>
     <meta charset="UTF-8">
     <title>ChatApp - TSS</title>
+    <link rel="stylesheet" href="static/style/style.css">
     
 </head>
 <body>
-<h1><center>Welcome to chat room {{ room }}</h1></center>
+    <div class = "div chatbg">
+        <div class = "box3"
+<h1><center><p1>Welcome to chat room {{ room }}!</p1></center>
+    <br>
+<center><p2> Currently logged as in: {{ username }}</p2></center>
+    <br>
 
-<center><div id="messages", style="word-wrap: break-word;width:300px;height:auto;border:4px solid rgba(69, 33, 155, 0.705);"></div></center>
+<center><div id="messages", style="word-wrap:break-word;min-height: 250px;width:300px;height:auto;border:2px solid rgba(69, 33, 155, 0.5); background-color: rgb(233, 233, 233, 0.8); text-align: left;"></div></center>
 
 <form id="message_input_form">
-    <center><input type="text" id="message_input" placeholder="Type your message here..", style="height: 40px; width: 299px">
+    <center><input type="text" autocomplete="off" id="message_input" placeholder="Type your message here..", style="height: 40px; width: 299px">
     <br>
-    <button type="submit">Send</button>
-</div>
-<input type="button" onclick="location.href='http://localhost:3002/myprofile'" value="Back" /></center>
+    <button class = button3 type="submit">Send</button>
+<input type="button" class=button3  onclick="location.href='http://localhost:3002/myprofile'" value="Back" /></center>
 </form>
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.3.0/socket.io.js"></script>
@@ -34,7 +39,7 @@
             let message = message_input.value.trim();
             if (message.length) {
                 socket.emit('send_message', {
-                    username: "{{ username }} says: ",
+                    username: "{{ username }} says ",
                     room: "{{ room }}",
                     message: message
                 })
@@ -62,7 +67,7 @@
         console.log(data);
         if (data.username !== "{{ username }}") {
             const newNode = document.createElement('div');
-            newNode.innerHTML = `<b>${data.username}</b> has joined the room`;
+            newNode.innerHTML = `<b>${data.username}</b> has joined the room.`;
             document.getElementById('messages').appendChild(newNode);
         }
     });
@@ -70,7 +75,7 @@
     socket.on('leave_room_announcement', function (data) {
         console.log(data);
         const newNode = document.createElement('div');
-        newNode.innerHTML = `<b>${data.username}</b> has left the room`;
+        newNode.innerHTML = `<b>${data.username}</b> has left the room.`;
         document.getElementById('messages').appendChild(newNode);
     });
 </script>
