@@ -4,20 +4,28 @@
     <head>
       <title>Events</title>
         <script src="static/evCreate.js"></script> <!-- rename scriptjs if needed, check path-->
+        <link rel="stylesheet" href="static/style/style.css">
      </head>
     <body>
-        <div>
-           <center><h2>Evenimente create</h2></center>
-
+      <div class="div eventbg">
+          <div class="box4">
+            <br>
+            <br>
+           <center><p2>Here are the events created by you and/or other users:</p2></center>
+           <br>
+           <center><p2>(Format: Event - User - Start Date - End Date)</p2></center>
+           <br>
+           <br>
            {% for events in events %}
-           <center><div>{{events[0] + " - " +events[1]+ " - " +events[2]+ " - " +events[3]}}</div></center>
-           <center><div> Participants ?? </div></center>
-           <center><div> <button onclick="backButton()">Take part!</button>
+           <center><div><p4>{{events[0] + " - " +events[1]+ " - " +events[2]+ " - " +events[3]}}</p4></div></center>
+           <center><div><p4> Participants # -
+           <button class=button5 onclick="backButton()">Take part!</button></p4></div></center>
+           <br>
            {%endfor%}
-
-           <center><button onclick="backButton()">Cancel. Back to main page.</button></center>
-
-
+           <br>
+           <center><button class=button4 onclick="backButton()">Back</button></center>
+           <br>
         </div>
+      </div>
     </body>
 </html>

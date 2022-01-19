@@ -3,31 +3,30 @@
 <head>
     <title>Event Calendar Planer</title>
     <script src="static/evCreate.js"></script>
+    <link rel="stylesheet" href="static/style/style.css">
 </head>
 <body>
-    <div class="container">
-        <div>
-            <center><h4>Hello {{ myprofilename }} your event for everyone to see:</h4></center>
+    <div class="div eventbg">
+        <div class="box4">
+            <br>
+            <br>
+            <center><p2>{{ myprofilename }} create your event for everyone to see:</p2></center>
+            <br>
+            <p2>Name your event: </p2>
+            <center><input name="title" type="text" placeholder="Event Title.."/></center>
+            <br>
+			<center><p2><label for="event-start-time">Input a start time:</label></p2>
+            <br>
+			<input name="startdate" type="text" placeholder="Start Date.." id="event-start-time"></center>
+            <br>
+			<p2><center><label for="event-end-time">Input an end time:</label>
+            <br>
+			<input name="enddate" type="text" placeholder="End Date.." id="event-end-time" ></center></p2>
+            <br>
+            <center><button class=button4 type="button" onclick="testCreateEvent()">Create event!</button>
+            <button class=button4 type="button" onclick="backButton()">Cancel</button></center>
+            <br>
         </div>
-        <div>
-            <center>
-               <input name="title" type="text" placeholder="Event Title"/></center>
-              </div>
-		<div>
-			<center><label for="event-start-time">Choose a start time for your event:</label>
-
-			<input name="startdate" type="text" id="event-start-time" ></center>
-		</div>
-        <div>
-			<center><label for="event-end-time">Choose an end time for your event:</label>
-
-			<input name="enddate" type="text" id="event-end-time" ></center>
-		</div>
-        <center><button type="button" onclick="testCreateEvent()">Create event!</button></center>
-        <center><button onclick="backButton()">Cancel. Back to main page.</button></center>
-
-
-
     </div>
 </body>
 </html>
