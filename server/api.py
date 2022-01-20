@@ -197,6 +197,9 @@ def get_post():
     events = get_events(conn)
     conn.close()
     return render_template('showEvents.html', events=events)
-
+# create post template
+@app.route('/create_post')
+def createPost():
+    return render_template("post.html", myprofilename = currentuser)
 if __name__ == '__main__':
     app.run(port=3002, debug=True)
