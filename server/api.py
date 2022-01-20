@@ -6,7 +6,7 @@ import datetime
 from TeamTssWebAppProject.database.repository import get_connection, get_email_and_password, connect, \
     create_user
 from TeamTssWebAppProject.database.eventrepo import create_event, get_events
-
+from TeamTssWebAppProject.database.repo_post import create_post, get_posts
 app = Flask("ProjectAppTss", template_folder='../client/', static_folder='../client/static/') 
 # render_template attempts to find by default a folder named 'templates
 # by redirecting the template_folder path, we can use the client folder instead
@@ -197,9 +197,18 @@ def get_post():
     events = get_events(conn)
     conn.close()
     return render_template('showEvents.html', events=events)
-# create post template
+
+#create post template
 @app.route('/create_post')
 def createPost():
     return render_template("post.html", myprofilename = currentuser)
+
+#get posts
+@app.route('/get_posts', methods=['GET'])
+def get_post():
+    conn = connect(DB_FILE)
+    posts = get_posts(conn)
+    conn.close()
+    return render_template('posts.html', posts=posts)
 if __name__ == '__main__':
     app.run(port=3002, debug=True)

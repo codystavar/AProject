@@ -1,0 +1,25 @@
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+      <title>Posts</title>
+        <script src="static/posts.js"></script> <!-- rename scriptjs if needed, check path-->
+     </head>
+    <body>
+        <div>
+           <center><h2>Posturi create</h2></center> 
+           
+           {% for post in posts %}
+           <center><div>{{post[0] + " - " +post[1]}}</div></center> 
+           <center><div> ?? Likes  ?? Dislikes </div></center>
+           <center><div> <button onclick="back()">Like</button>
+            <button onclick="back()">Dislike</button> </div></center>
+           {%endfor%}
+
+           <center><button onclick="back()">Cancel. Back to main page.</button></center>
+        
+
+        </div>
+    </body>
+</html>
