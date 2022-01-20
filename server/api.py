@@ -203,6 +203,31 @@ def get_event():
 def createPost():
     return render_template("post.html", myprofilename = currentuser)
 
+#Create a post
+@app.route('/api/v1/create-post', methods=['POST'])
+def Post():
+    post_details = request.json
+    post = post_details.get("post", None)
+    if post == '':
+        error = {
+            "error": "--Failed to create post. Please write in the textbox."
+        }
+        return error, 400
+    try:
+            details = {
+            "name": currentuser,
+            "post": post_details.get("post", None)
+            }
+            print(details)
+            conn = connect(DB_FILE)
+            create_post(conn, details)
+            conn.close()
+            return '', 200
+    except Exception as e:
+        error = {
+            'error': {e}
+        }
+        return error, 500
 
 #get posts
 @app.route('/get_posts', methods=['GET'])
