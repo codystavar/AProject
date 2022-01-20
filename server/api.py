@@ -192,7 +192,7 @@ def handle_leave_room_event(data):
 
 #show events
 @app.route('/get_events', methods=['GET'])
-def get_post():
+def get_event():
     conn = connect(DB_FILE)
     events = get_events(conn)
     conn.close()
@@ -203,6 +203,7 @@ def get_post():
 def createPost():
     return render_template("post.html", myprofilename = currentuser)
 
+
 #get posts
 @app.route('/get_posts', methods=['GET'])
 def get_post():
@@ -210,5 +211,6 @@ def get_post():
     posts = get_posts(conn)
     conn.close()
     return render_template('posts.html', posts=posts)
+
 if __name__ == '__main__':
     app.run(port=3002, debug=True)
