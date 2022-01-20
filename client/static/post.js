@@ -4,7 +4,7 @@ function ifSuccess(response) {
     console.log("POST SUCESSFULLY CREATED.");
         let tID = setTimeout(function () {
             alert("Post sucessfully created. You will be redirected to the posts page.")
-            window.location.href = "posts.html";
+            window.location.href = "/myprofile";
             window.clearTimeout(tID);
         }, 4000);
 
@@ -15,11 +15,14 @@ function ifSuccess(response) {
         alert("Please try again!")
     }
 }
+function ifError(){
+    alert("Problem!")
+}
 
 function post(){
 
     const data = {
-        name: document.getElementsByName("name")[0].value,
+        name: document.getElementsByName("name")[0],
         post: document.getElementsByName("post")[0].value
     };
     url = "http://localhost:3002/api/v1/create-post";
@@ -35,4 +38,7 @@ function post(){
     fetch(url, options)
     .then(ifSuccess)
     .catch(ifError)
+}
+function back(){
+    window.location.href = "/myprofile";
 }
