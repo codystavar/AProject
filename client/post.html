@@ -3,21 +3,24 @@
     <head>
       <title>Create post - TSS</title>
         <script src="static/post.js"></script>
+        <link rel="stylesheet" href="static/style/style.css">
      </head>
     <body>
-        <div>
-           <center><h2><p>Create a post</p></h2></center>
-         </div>
-            <div>
-           <center><p name="name">{{ myprofilename }}</p></center>
-           </div>
-           <div>
-           <center><input name="post" type="text" placeholder="Your post"/></center>
-           </div>     
-            <div>
-          <center><button onclick="post()">Create a post</button></center>
-          <center><button onclick="back()">Cancel. Back to main page.</button></center>
-            </div>
-
+      <div class = "div createpostbg">
+        <div class = "box5">
+          <br>
+          <h2><p>Create a post as {{ myprofilename }}: </p></h2>
+          <textarea style="width: 60%; height: 100px; min-width: 60%; max-width: 80%; min-height: 100px; max-height: 200px;"; name="post" type="text" placeholder="Write your post here!"></textarea>
+          <br>
+          <br>
+          <button class=button6 onclick="post()">Create</button>
+          <button class=button6 onclick="back()">Cancel</button>
+          <br>
+          <br>
+          <br>
+          <p4><b><u>Note:</u> Your posts and other posts can be viewed from my profile (see all posts).</b></p4>
+          <br>
+          <br>
+      </div>
     </body>
 </html>
