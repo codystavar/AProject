@@ -6,7 +6,7 @@ import datetime
 from TeamTssWebAppProject.database.repository import get_connection, get_email_and_password, connect, \
     create_user
 from TeamTssWebAppProject.database.eventrepo import create_event, get_events
-from TeamTssWebAppProject.database.repo_post import create_post, get_posts
+from TeamTssWebAppProject.database.repo_post import create_post, get_posts, like, dislike
 app = Flask("ProjectAppTss", template_folder='../client/', static_folder='../client/static/') 
 # render_template attempts to find by default a folder named 'templates
 # by redirecting the template_folder path, we can use the client folder instead
@@ -236,6 +236,36 @@ def get_post():
     posts = get_posts(conn)
     conn.close()
     return render_template('posts.html', posts=posts)
+#like
+@app.route('//api/v1/like', methods =['UPDATE', 'GET'])
+def Like():
+    try:
+        id = request.json
+        conn = connect(DB_FILE)
+        like(conn, id)
+        conn.close()
+        return '', 200
+    except Exception as e:
+        error = {
+            'error': {e}
+        }
+        return error, 500
+
+# like
+@app.route('//api/v1/dislike', methods=['UPDATE', 'GET'])
+def Dislike():
+    try:
+        id = request.json
+        conn = connect(DB_FILE)
+        dislike(conn, id)
+        conn.close()
+        return '', 200
+    except Exception as e:
+        error = {
+            'error': {e}
+        }
+        return error, 500
+
 
 if __name__ == '__main__':
     app.run(port=3002, debug=True)

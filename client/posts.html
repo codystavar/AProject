@@ -14,10 +14,10 @@
            <h2>Created posts:</h2>
            {% for post in posts %}
           <center><div style="background-color: rgb(154, 160, 160); width: 400px; max-width: 400px;"><p4>Created by {{post[0] + " with the post: " +post[1]}}</p4></div></center> 
-          <center><div div style="background-color: rgb(218, 219, 219); width: 400px; max-width: 400px;"><p5> # of Likes  # of Dislikes</p5></div></center>
+          <center><div div style="background-color: rgb(218, 219, 219); width: 400px; max-width: 400px;"><p5> {{post[2]}} of Likes  {{post[3]}} of Dislikes</p5></div></center>
            <br>
-           <div> <button class=button5 style="background-color: rgba(43, 151, 43, 0.9)" onclick="back()">Like</button>
-          <button class=button5 style="background-color: rgba(158, 23, 23, 0.9)" onclick="back()">Dislike</button> </div>
+           <div> <button class=button5 style="background-color: rgba(43, 151, 43, 0.9)" onclick="like({{post[4]}})">Like</button>          
+           <button class=button5 style="background-color: rgba(158, 23, 23, 0.9)" onclick="dislike({{post[4]}})">Dislike</button> </div>
            {%endfor%}
             <br>
            <center><button class=button6 onclick="back()">Go back</button></center>

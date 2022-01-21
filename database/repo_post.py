@@ -28,10 +28,47 @@ def create_post(conn, post_details):
     except Exception as e:
         print(f"--Failed to insert new post. Error: {e}.")
         raise e
-
 #get posts
 def get_posts(conn):
     cursor = conn.cursor()
-    cursor.execute('select name, post from post')
+    cursor.execute('select name, post, like, dislike, ID_post from post')
     posts = cursor.fetchall()
     return posts
+#like
+def like(conn, id):
+    cursor = conn.cursor()
+    cursor.execute(f'select like from post where ID_post = {id}')
+    likes = cursor.fetchone()
+    like = likes[0]+1
+    query = f"update post set like = {like} where ID_post = {id}"
+    try:
+        cursor = conn.cursor()
+        cursor.execute(query)
+        conn.commit()
+        print("..Post successfully liked...")
+        return
+    except sqlite3.IntegrityError as ie:
+        print(f"--Failed to like post due to constraints not met. Error: {ie}.")
+        raise ValueError(ie)
+    except Exception as e:
+        print(f"--Failed to like. Error: {e}.")
+        raise e
+#like
+def dislike(conn, id):
+    cursor = conn.cursor()
+    cursor.execute(f'select dislike from post where ID_post = {id}')
+    dislikes = cursor.fetchone()
+    dislike = dislikes[0]+1
+    query = f"update post set dislike = {dislike} where ID_post = {id}"
+    try:
+        cursor = conn.cursor()
+        cursor.execute(query)
+        conn.commit()
+        print("..Post successfully disliked...")
+        return
+    except sqlite3.IntegrityError as ie:
+        print(f"--Failed to dislike post due to constraints not met. Error: {ie}.")
+        raise ValueError(ie)
+    except Exception as e:
+        print(f"--Failed to dislike. Error: {e}.")
+        raise e
