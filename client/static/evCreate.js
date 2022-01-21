@@ -6,7 +6,7 @@ function ifSuccess(response) {
             alert("Event successfully created. You will be redirected to the sign in page.")
             window.location.href = "/myprofile";
             window.clearTimeout(tID);
-        }, 4000);
+        }, );
 
     }
     else

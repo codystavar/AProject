@@ -6,7 +6,7 @@ function ifSuccess(response) {
             alert("Post sucessfully created. You will be redirected to the posts page.")
             window.location.href = "/myprofile";
             window.clearTimeout(tID);
-        }, 4000);
+        }, );
 
     }
     else

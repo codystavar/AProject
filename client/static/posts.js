@@ -5,7 +5,7 @@ function ifSuccess(response) {
     let tID = setTimeout(function () {
         window.location.href = "/get_posts";
         window.clearTimeout(tID);
-    }, 4000);
+    }, );
 
     }
     else
