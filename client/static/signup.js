@@ -4,7 +4,7 @@ function ifSuccess(response) {
     console.log("USER SUCESSFULLY CREATED.");
         let tID = setTimeout(function () {
             alert("User sucessfully created. You will be redirected to the sign in page.")
-            window.location.href = "index.html";
+            window.location.href = "/";
             window.clearTimeout(tID);
         }, 4000);
     
